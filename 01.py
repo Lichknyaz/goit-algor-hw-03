@@ -11,7 +11,7 @@ def input_error(func):
     return inner
 
 @input_error
-def copy_files(working_dir, destination_dir = "dist" )-> None:
+def copy_files(working_dir, destination_dir)-> None:
     destination_dir = Path(destination_dir)
     working_dir = Path(working_dir)
     
@@ -25,13 +25,15 @@ def copy_files(working_dir, destination_dir = "dist" )-> None:
 
     if working_dir.is_dir():
         for child in working_dir.iterdir():
-            copy_files(child, destination_dir = "dist")
+            copy_files(child, destination_dir)
 
 
 if __name__ == "__main__":
     working_dir = input("Enter working directory: ")
     if Path(working_dir).is_dir():
         destination_dir = input("Enter destination directory: ")
+        if destination_dir == "":
+            destination_dir = "dist"
         copy_files(working_dir, destination_dir)
     else:
         print ( "Working directory does not exist")
